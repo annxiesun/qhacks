@@ -1,0 +1,56 @@
+.arrow {
+    height: 52px;
+    width: auto;
+}
+
+.arrow2 {
+    transform: rotate(180deg);
+}
+
+.arrowbtn {
+    display: flex;
+    background: none;
+    border-radius: 2px;
+    border: none;
+}
+
+.chooseContainer {
+    display: flex;
+    align-items: center;
+}
+.arrowbtn:hover {
+    background-color: rgb(247, 247, 247);
+}
+.container{
+
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ height: 100vh;
+ padding: 50px;
+ box-sizing: border-box;
+}
+
+.image {
+    height: 200px;
+    margin-bottom: 24px;
+}
+
+
+@media screen and (max-width: 700px) { 
+    .logo {
+        width: 100%;
+        height: auto;
+    }
+    
+    
+}
+
+.gobtn {
+    background-color: white;
+    border: none;
+}
+.play {
+    height: 32px;
+}

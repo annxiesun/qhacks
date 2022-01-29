@@ -25,6 +25,12 @@
   --md: 960px;
   --lg: 1280px;
   --xl: 1920px;
+
+  --purple: #4A0C83; 
+  --blue: #4EAFE5;
+  --yellow: #FFC952;
+  --pink: #FF508A;
+  --green: #4DE89E;
 }
 
 /* Text Styles */

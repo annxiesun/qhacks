@@ -1,0 +1,44 @@
+.container{
+
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: row;
+ height: 100vh;
+ padding: 50px;
+ box-sizing: border-box;
+}
+
+.playerContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 320px;
+    margin-right: 100px;
+}
+.playerIcon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 700px) { 
+    .container{
+        flex-direction: column;
+
+       }
+       .playerContainer {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 24px;
+    }
+       
+    
+    
+}
+
+.pfp {
+    width: 80px;
+}
+
