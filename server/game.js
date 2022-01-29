@@ -1,6 +1,8 @@
 class game {
     numPlayers
     players
+    currPLayer
+    currWord
     animalDict = {
         "cat":1,
         "dog":2,
@@ -17,17 +19,17 @@ class game {
         this.dictionary = dictionary;
     }
 
-    checkWord(word) { 
-        return word in dictionary
+    checkWord(word) {
+        return (word in dictionary && currWord[currWord.length - 1] == word[0])
     }
 
-    nextTurn(player, numPlayers) {
+    nextPlayer(player) {
         // have a next id variable inside each player instance
         // start i at 1 to exclude the current player
         let nextP = player
         for (let i = 1; i < numPlayers; i++) {
-            nextP = nextP.next()
-            if (nextP.alive() == true) {
+            nextP = nextP.getNext()
+            if (nextP.getAlive() == true) {
                 return nextP
             }
         }
