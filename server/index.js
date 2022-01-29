@@ -36,17 +36,15 @@ app.get("/lobby*", (req, res) => {
 io.on('connection', (socket) => {
   socket.on('join', (room) => {
     console.log("User: " + socket.id + " | joined room: " + room);
-    tools.ConnectUser(socket.id, room)
     socket.join(room);
-
-    console.log("We now have the following users in room" + room);
-    var users = tools.GetUsersInRoom(room);
-    for (var count = 0; count < users.length; count++){
-        console.log (users[count]);
-    }
   });
 
+  socket.on('message', (msg) => {
+    io.to(socket.rooms[1]).emit("hi");
+  });
 });
+
+
 
 httpServer.listen(port , () => {
   console.log("Server hosted on " + port);
