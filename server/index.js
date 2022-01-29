@@ -28,11 +28,19 @@ transporter.verify((err, success) => {
 const path = require("path");
 
 
-const mainRoute = encodeURI("/");
+const start = encodeURI("/");
 
-app.use(mainRoute, express.static(path.join(__dirname, "..", "build")));
-app.use(mainRoute, express.static("public"));
-app.get(mainRoute, (req, res, next) => {
+app.use(start, express.static(path.join(__dirname, "..", "build")));
+app.use(start, express.static("public"));
+app.get(start, (req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+});
+
+const start = encodeURI("/lobby");
+
+app.use(start, express.static(path.join(__dirname, "..", "build")));
+app.use(start, express.static("public"));
+app.get(start, (req, res, next) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
