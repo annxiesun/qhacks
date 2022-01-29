@@ -16,7 +16,6 @@ const port = process.env.PORT || 3000
 app.use(express.static(path.join(__dirname, "..", "build")));
 
 
-
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
@@ -30,17 +29,22 @@ app.get("/getUserProfile/*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "resources", "pfps", imageFile));
 });
 
-io.on("connection", (socket) => {
-  console.log("User:" + socket.id + " joined")
-});
-
-
 app.get("/lobby*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "some.html"));
 });
 
-const sendRoute = encodeURI("/send");
-app.post(sendRoute, function (req, res) {
+io.on('connection', (socket) => {
+  socket.on('join', (room) => {
+    console.log("User: " + socket.id + " | joined room: " + room);
+    tools.ConnectUser(socket.id, room)
+    socket.join(room);
+
+    console.log("We now have the following users in room" + room);
+    var users = tools.GetUsersInRoom(room);
+    for (var count = 0; count < users.length; count++){
+        console.log (users[count]);
+    }
+  });
 
 });
 
