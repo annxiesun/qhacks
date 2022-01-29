@@ -1,11 +1,14 @@
 const express = require("express");
-const nodemailer = require("nodemailer");
-var cors = require('cors');
-var tools = require('./tools');
-const app = express();
-require("dotenv").config();
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
+const app = express();
+var cors = require('cors');
 app.use(cors());
+const httpServer = createServer(app);
+const io = new Server(httpServer, { });
+var tools = require('./tools');
+require("dotenv").config();
 
 const path = require("path");
 const port = process.env.PORT || 3000
@@ -39,6 +42,6 @@ app.post(sendRoute, function (req, res) {
 
 });
 
-app.listen(port , () => {
+httpServer.listen(port , () => {
   console.log("Server hosted on " + port);
 });
