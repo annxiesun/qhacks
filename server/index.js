@@ -22,6 +22,12 @@ app.get("/newLobby", (req, res) => {
   res.send(tools.GenerateLobbyUrl());
 });
 
+app.get("/user/*", (req, res) => {
+  res.send(tools.GenerateLobbyUrl());
+});
+
+
+
 
 app.get("/lobby*", (req, res) => {
    console.log(req.path)
