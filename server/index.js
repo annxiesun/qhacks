@@ -9,18 +9,15 @@ app.use(cors());
 const path = require("path");
 const port = process.env.PORT || 3000
 
+app.use(express.static(path.join(__dirname, "..", "build")));
 
-const start = encodeURI("/");
-app.use(start, express.static(path.join(__dirname, "..", "build")));
-app.use(start, express.static("public"));
-app.get(start, (req, res) => {
+app.get("/", (req, res, next) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
-const game = encodeURI("/lobby/*");
-app.get(game,  (req, res) => {
-  console.log("Lobby name");
-  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+app.get("/lobby*", (req, res, next) => {
+   
+  res.sendFile(path.join(__dirname, "..", "build", "some.html"));
 });
 
 const sendRoute = encodeURI("/send");
