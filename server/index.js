@@ -30,7 +30,9 @@ app.get("/getUserProfile/*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "resources", "pfps", imageFile));
 });
 
-
+io.on("connection", (socket) => {
+  console.log("User:" + socket.id + " joined")
+});
 
 
 app.get("/lobby*", (req, res) => {
