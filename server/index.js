@@ -1,6 +1,7 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 var cors = require('cors');
+var tools = require('./tools');
 const app = express();
 require("dotenv").config();
 
@@ -11,12 +12,19 @@ const port = process.env.PORT || 3000
 
 app.use(express.static(path.join(__dirname, "..", "build")));
 
-app.get("/", (req, res, next) => {
+
+
+app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
-app.get("/lobby*", (req, res, next) => {
-   
+app.get("/newLobby", (req, res) => {
+  res.send(tools.GenerateLobbyUrl());
+});
+
+
+app.get("/lobby*", (req, res) => {
+   console.log(req.path)
   res.sendFile(path.join(__dirname, "..", "build", "some.html"));
 });
 
