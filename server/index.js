@@ -1,17 +1,19 @@
 const express = require("express");
-const nodemailer = require("nodemailer");
-var cors = require('cors');
-var tools = require('./tools');
-const app = express();
-require("dotenv").config();
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 
+const app = express();
+var cors = require('cors');
 app.use(cors());
+const httpServer = createServer(app);
+const io = new Server(httpServer, { });
+var tools = require('./tools');
+require("dotenv").config();
 
 const path = require("path");
 const port = process.env.PORT || 3000
 
 app.use(express.static(path.join(__dirname, "..", "build")));
-
 
 
 app.get("/", (req, res) => {
@@ -27,18 +29,23 @@ app.get("/getUserProfile/*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "resources", "pfps", imageFile));
 });
 
-
-
-
 app.get("/lobby*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "some.html"));
 });
 
-const sendRoute = encodeURI("/send");
-app.post(sendRoute, function (req, res) {
+io.on('connection', (socket) => {
+  socket.on('join', (room) => {
+    console.log("User: " + socket.id + " | joined room: " + room);
+    socket.join(room);
+  });
 
+  socket.on('message', (msg) => {
+    io.to(socket.rooms[1]).emit("hi");
+  });
 });
 
-app.listen(port , () => {
+
+
+httpServer.listen(port , () => {
   console.log("Server hosted on " + port);
 });
