@@ -14,7 +14,13 @@ module.exports = {
         return choice
     }
     return "placeholder"
+  },
+  GetLastValue: function (set) {
+    let value;
+    for(value of set);
+    return value;
   }
+
 };
 
 var existingLobbies = []

@@ -40,7 +40,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('message', (msg) => {
-    io.to(socket.rooms[1]).emit("hi");
+    console.log(msg)
+    var room = tools.GetLastValue(socket.rooms);
+    console.log(room)
+    io.to(room).emit("new_msg", msg);
   });
 });
 
