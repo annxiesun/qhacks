@@ -18,19 +18,19 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
-app.get("/newLobby", (req, res) => {
+app.get("/getNewLobby", (req, res) => {
   res.send(tools.GenerateLobbyUrl());
 });
 
-app.get("/user/*", (req, res) => {
-  res.send(tools.GenerateLobbyUrl());
+app.get("/getUserProfile/*", (req, res) => {
+  var imageFile = tools.GetUserProfile(req.path) + ".png"
+  res.sendFile(path.join(__dirname, "..", "build", "resources", "pfps", imageFile));
 });
 
 
 
 
 app.get("/lobby*", (req, res) => {
-   console.log(req.path)
   res.sendFile(path.join(__dirname, "..", "build", "some.html"));
 });
 
