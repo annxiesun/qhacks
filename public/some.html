@@ -6,17 +6,28 @@
 </head>
 
 <body>
+  <input id="input" type="text" placeholder="Enter message" />
+  <input id="send" type="submit" value="Enter" />
+  <input id="input2" type="text" placeholder="Enter name" />
+  <input id="send2" type="submit" value="Enter" />
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var lobby = (window.location.href).substring(28);
-    console.log(lobby);
-
     socket = io();
 
     socket.emit('join', lobby);
+
+    document.getElementById("send").onclick = function() {
+      socket.emit('message', document.getElementById("input").value)
+    }
+    document.getElementById("send2").onclick = function() {
+      socket.emit('setUserName', document.getElementById("input2").value)
+    }
     socket.on("new_msg", function(data) {
-        alert(data.msg);
+      const textNode = document.createTextNode(data);
+      document.body.appendChild(textNode);
     });
+
   </script>
 </body>
 

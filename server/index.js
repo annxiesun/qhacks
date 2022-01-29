@@ -20,9 +20,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
-app.get("/getNewLobby", (req, res) => {
-  res.send(tools.GenerateLobbyUrl());
-});
 
 app.get("/getUserProfile/*", (req, res) => {
   var imageFile = tools.GetUserProfile(req.path) + ".png"
@@ -40,7 +37,15 @@ io.on('connection', (socket) => {
   });
 
   socket.on('message', (msg) => {
-    io.to(socket.rooms[1]).emit("hi");
+    var room = tools.GetLastValue(socket.rooms);
+
+    var message = tools.GetUserName(socket.id) + ": " + msg
+    io.to(room).emit("new_msg", message);
+  });
+
+  socket.on('setUserName', (username) => {
+  console.log("hi")
+     tools.AddUserName(socket.id, username);
   });
 });
 

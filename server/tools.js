@@ -14,7 +14,23 @@ module.exports = {
         return choice
     }
     return "placeholder"
+  },
+  GetLastValue: function (set) {
+    let value;
+    for(value of set);
+    return value;
+  },
+  AddUserName: function (id, username) {
+    usernames[id] = username;
+  },
+  GetUserName: function(id) {
+    if (usernames[id]) {
+      return usernames[id];
+    }
+    return id;
   }
+
 };
 
-var existingLobbies = []
+var existingLobbies = [];
+var usernames = {};
