@@ -8,6 +8,7 @@
 <body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+    socket = io();
     socket.on("connect", () => {
       console.log(socket.id);
     });
