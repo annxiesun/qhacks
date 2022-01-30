@@ -18,14 +18,22 @@ class game {
     usedWords;
     constructor(playerIds, dictionary) {
         this.numPlayers = playerIds.length;
-        this.playerIds = playerIds;
-        chooseDictionary();
+        this.setPlayers(playerIds);
+        this.chooseDictionary();
     }
 
     setPlayers(playerIds) {
         for (let index = 0; index < playerIds.length; index++) {
-            this.players[index] = playerIds[index];
-            
+            this.players[index] = player(0, null);
+        }
+        for (let index = 0; index < playerIds.length; index++) {
+            this.players[index].id = playerIds[index];
+            if(index != playerIds.length - 1) {
+                this.players[index].next = this.players[index + 1];
+            } else {
+                this.players[index].next = this.players[0];
+            }
+
         }
     }
 
@@ -33,7 +41,7 @@ class game {
         var datasetNum = Math.floor(Math.random() * 3) + 1;
         var text = fs.readFileSync("../dataset_dictionaries/dataset" + datasetNum + ".txt");
         var textByLine = text.split("\n");
-        var description = textByLine[0];
+        this.dictionaryDescription = textByLine[0];
         textByLine.splice[0, 1]; //splice at [0] and delete 1 word
         this.dictionary = new Set(textByLine);
     }
