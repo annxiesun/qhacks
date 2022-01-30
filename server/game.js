@@ -1,3 +1,4 @@
+import './player.js';
 var fs = require("fs");
 
 class game {
@@ -18,16 +19,23 @@ class game {
     constructor(playerIds, dictionary) {
         this.numPlayers = playerIds.length;
         this.playerIds = playerIds;
-        this.chooseDictionary(this.dictionary);
+        chooseDictionary();
     }
 
-    chooseDictionary(dictionary) {
+    setPlayers(playerIds) {
+        for (let index = 0; index < playerIds.length; index++) {
+            this.players[index] = playerIds[index];
+            
+        }
+    }
+
+    chooseDictionary() {
         var datasetNum = Math.floor(Math.random() * 3) + 1;
         var text = fs.readFileSync("../dataset_dictionaries/dataset" + datasetNum + ".txt");
         var textByLine = text.split("\n");
         var description = textByLine[0];
         textByLine.splice[0, 1]; //splice at [0] and delete 1 word
-        var set = new Set(textByLine);
+        this.dictionary = new Set(textByLine);
     }
 
     checkWord(word) {
