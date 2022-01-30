@@ -32,7 +32,6 @@ io.on('connection', (socket) => {
     io.to(room).emit()
   });
 
-  //temp
   socket.on('message', (msg) => {
     var room = tools.GetLastValue(socket.rooms);
 
@@ -56,10 +55,17 @@ io.on('connection', (socket) => {
 
     var clients = io.sockets.adapter.rooms.get(room);
 
-    console.log(clients);
-
-    console.log(tools.GetUsers(clients))
+    tools.NewGame(room, clients)
   });
+
+  socket.on('checkAttempt', (msg) => {
+    var room = tools.GetLastValue(socket.rooms);
+    var game = tools.GetGame(room)
+
+    
+
+  });
+
 
 });
 
