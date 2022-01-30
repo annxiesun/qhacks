@@ -8,7 +8,10 @@ import FadeIn from 'react-fade-in';
 function Timer({ time }) {
     return (
         <div className={styles.clock}>
-            {time}
+            <div style={{ position: "relative", width: "80px", height: "80px" }}>
+                <img className={styles.clockimage} src={"resources/clock.png"} />
+                <div className={styles.timetext}>{time}</div>
+            </div>
         </div>
     )
 }
@@ -37,10 +40,31 @@ function isCorrect(word) {
 function GamePage() {
     const [wordArr, setWordArr] = useState(["QUIRKY", "YEAR", "ROCKET"]);
     const [players, setPlayers] = useState(players_default);
+    const [currPlayer, setCurrPlayer] = useState(0);
 
     const [devPlayernum, setDevPlayernum] = useState(0);
     const [time, setTime] = useState(10);
 
+    const nextPlayer = () => {
+        setCurrPlayer((c) => {
+            let cc = c + 1;
+            if (cc >= players.length - 1) {
+                cc = 0;
+            }
+            console.log(players[cc].lives)
+            while (players[cc].lives <= 0) {
+                console.log(cc);
+                cc += 1;
+                console.log(cc);
+                if (cc >= players.length - 1) {
+                    cc = 0;
+                } else {
+                    continue;
+                }
+            }
+            return cc;
+        })
+    }
 
     var socket = useContext(SocketContext);
 
@@ -54,23 +78,26 @@ function GamePage() {
 
     const updateLife = (player, num) => {
         setPlayers((arr) => {
-            const newArr = [...arr];
-            newArr[player].lives += num;
+            console.log("hi")
+            const newArr = JSON.parse(JSON.stringify(arr));
+            newArr[player].lives -=1;
             return newArr;
         });
     }
 
     const devLoseLife = () => {
-        updateLife(devPlayernum, -1);
+        console.log(currPlayer, devPlayernum, currPlayer === parseInt(devPlayernum));
+        updateLife(parseInt(devPlayernum), -1);
+        if(currPlayer === parseInt(devPlayernum)) nextPlayer();
     }
 
     const devStartTimer = () => {
         var times = 0;
         var interval = setInterval(() => {
             setTime((t) => {
-                return t-1;
+                return t - 1;
             });
-            times+=1;
+            times += 1;
             if (times >= 10) clearInterval(interval);
         }, 1000);
     }
@@ -93,7 +120,6 @@ function GamePage() {
             if (isCorrect(e.target.value)) {
                 onUpdateWord(e.target.value);
             }
-            socket.emit('checkAttempt', e.target.value);
             e.target.value = "";
 
         }
@@ -103,9 +129,9 @@ function GamePage() {
         <div className={styles.container}>
             <Timer time={time} />
             <div className={styles.playerContainer}>
-                {players.map((player) => {
+                {players.map((player, i) => {
                     return (
-                        <Player i={player.pic} name={player.username} lives={player.lives} />
+                        <Player active={currPlayer === i} i={player.pic} name={player.username} lives={player.lives} />
                     )
                 })}
             </div>
