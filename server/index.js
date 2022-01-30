@@ -22,7 +22,8 @@ app.get("*", (req, res) => {
 
 
 io.on('connection', (socket) => {
-  socket.on('join', (uniqueID, room) => {
+
+  socket.on('joinLobby', (uniqueID, room) => {
     console.log("User: " + socket.id + " | joined room: " + room);
     socket.join(room);
 
@@ -30,8 +31,20 @@ io.on('connection', (socket) => {
     console.log(clients);
     console.log(tools.GetLobby(clients));
 
-    io.to(room).emit("userUpdate", tools.GetLobby(clients));
+    io.to(room).emit("userUpdateLobby", tools.GetLobby(clients));
   });
+
+  socket.on('joinServer', (uniqueID, room) => {
+    console.log("User: " + socket.id + " | joined room: " + room);
+    socket.join(room);
+
+    var clients = tools.GetUsersIds();
+    console.log(clients);
+    console.log(tools.GetUsers(clients));
+
+    io.to(room).emit("userUpdateGame", tools.GetUsers(clients));
+  });
+
 
   socket.on('message', (msg) => {
     var room = tools.GetLastValue(socket.rooms);

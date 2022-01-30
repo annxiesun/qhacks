@@ -12,7 +12,11 @@ module.exports = {
   AddProfilePhoto: function (id, choice) {
     pfp[id] = choice;
   },
-  AddUser: function(name) { allUserNames.push(name) },
+  AddUser: function(name) {
+    if (allUserNames.indexOf(name) == -1) {
+      allUserNames.push(name);
+    }
+  },
   SetUpLives: function (id) {
     liveMap[id] = 2;
   },

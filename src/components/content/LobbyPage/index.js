@@ -20,8 +20,8 @@ function TitlePage() {
     var socket = useContext(SocketContext);
 
     useEffect(() => {
-        socket.emit('join','room1');
-        socket.on('userUpdate', setPlayers);
+        socket.emit('joinLobby', window.sessionStorage.getItem("abc"), 'room1');
+        socket.on('userUpdateLobby', setPlayers);
 
         return () => socket.disconnect();
     }, [])
