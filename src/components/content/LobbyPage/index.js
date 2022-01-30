@@ -25,6 +25,7 @@ function TitlePage() {
         return () => socket.disconnect();
     }, [])
 
+
     return (
         <div className={styles.container}>
             <div className={styles.playerContainer}>

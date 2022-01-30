@@ -30,7 +30,7 @@ function CreatePage() {
 
     const onSubmit = () => {
         socket.emit('setUser','RANDOMNAME', avatar);
-        navigate('/lobby');
+        //navigate('/lobby');
     }
 
     return (
