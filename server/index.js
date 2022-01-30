@@ -43,6 +43,7 @@ io.on('connection', (socket) => {
   socket.on('setUser', (username, profile) => {
     console.log("SET")
     tools.AddUserName(socket.id, username);
+    console.log(socket.id)
     tools.AddProfilePhoto(socket.id, profile);
     tools.SetUpLives(socket.id);
 

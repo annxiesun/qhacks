@@ -28,9 +28,11 @@ function CreatePage() {
         }
     }
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         socket.emit('setUser','RANDOMNAME', avatar);
-        navigate('/lobby');
+        window.location.href = '/lobby';
+        console.log(window.location.href);
     }
 
     return (
@@ -47,7 +49,7 @@ function CreatePage() {
                 </button>
             </div>
 
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={(e) => onSubmit(e)}>
                 <Form.Group className="mb-3 w-100 flex flex-column align-items-center" controlId="formBasicEmail">
                     <Form.Label>Enter your name:</Form.Label>
                     <Row>
