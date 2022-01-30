@@ -50,6 +50,8 @@ io.on('connection', (socket) => {
     console.log(uniqueID);
     console.log(tools.GetUserProfile(uniqueID));
 
+    console.log(uniqueID);
+
   });
 
   socket.on('startGame', () => {

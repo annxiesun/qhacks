@@ -13,10 +13,10 @@ import {
 function MasterView() {
 
   useEffect(() => {
-    if (window.localStorage.getItem("randomId") === null) {
-      window.localStorage.setItem("randomId", Math.random().toString(16).substring(2,10));
+    if (window.sessionStorage.getItem("abc") === null) {
+      window.sessionStorage.setItem("abc", Math.random().toString(16).substring(2,10));
     }
-    console.log(window.localStorage.getItem("randomId")); // access it
+    console.log(window.sessionStorage.getItem("abc")); // access it
   },[]);
 
   return (
