@@ -1,15 +1,6 @@
 const MaxTime = 15;
 var tools = require('./game');
 module.exports = {
-  GenerateLobbyUrl: function () {
-    var randomLobby = Math.random().toString(16).substring(2,10);
-    if (randomLobby in existingLobbies) {
-        GenerateLobbyUrl();
-    } else {
-        existingLobbies.push(randomLobby);
-        return randomLobby;
-    }
-  },
   GetLastValue: function (set) {
     let value;
     for(value of set);
@@ -21,9 +12,11 @@ module.exports = {
   AddProfilePhoto: function (id, choice) {
     pfp[id] = choice;
   },
+  AddUser: function(name) { allUserNames.push(name) },
   SetUpLives: function (id) {
     liveMap[id] = 2;
   },
+  GetUsersIds: function() { return allUserNames },
   GetUserName: function(id) {
     if (usernames[id]) {
       return usernames[id];
@@ -36,14 +29,15 @@ module.exports = {
     }
     return 1;
   },
+  GetUserLives: function(id) { return liveMap[id] },
   GetUsers: function(listOfIds){
     var ids = Array.from(listOfIds);
     var ret_array = []
     for (var x = 0; x < ids.length; x++) {
         ret_array.push({
-            photo: this.GetUserProfile(ids[x]),
-            nickname: this.GetUserName(ids[x]),
-            lives: this.GetUserProfile(ids[x])
+            pic: this.GetUserProfile(ids[x]),
+            username: this.GetUserName(ids[x]),
+            lives: this.GetUserLives(ids[x])
         });
     };
     return ret_array;
@@ -69,6 +63,7 @@ module.exports = {
 };
 
 var existingLobbies = [];
+var allUserNames = [];
 var usernames = {};
 var pfp = {}
 var liveMap = {}

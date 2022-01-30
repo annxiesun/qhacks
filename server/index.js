@@ -22,11 +22,11 @@ app.get("*", (req, res) => {
 
 
 io.on('connection', (socket) => {
-  socket.on('join', (room) => {
+  socket.on('join', (uniqueID, room) => {
     console.log("User: " + socket.id + " | joined room: " + room);
     socket.join(room);
 
-    var clients = io.sockets.adapter.rooms.get(room);
+    var clients = tools.GetUsersIds();
 
     console.log(tools.GetLobby(clients));
 
@@ -40,11 +40,12 @@ io.on('connection', (socket) => {
     io.to(room).emit("new_msg", message);
   });
 
-  socket.on('setUser', (username, profile) => {
+  socket.on('setUser', (uniqueID, username, profile) => {
     console.log("SET")
-    tools.AddUserName(socket.id, username);
-    tools.AddProfilePhoto(socket.id, profile);
-    tools.SetUpLives(socket.id);
+    tools.AddUserName(uniqueID, username);
+    tools.AddProfilePhoto(uniqueID, profile);
+    tools.SetUpLives(uniqueID);
+    tools.AddUser(uniqueID);
 
   });
 
