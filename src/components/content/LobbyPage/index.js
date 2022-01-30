@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StartButton, InviteButton } from '../../widgets/Buttons'
 import styles from './style.module.css';
 import avatarList from '../../../globals/AvatarList';
-import {Link} from 'react-router-dom';
+import socketIOClient from "socket.io-client";
+const socket = socketIOClient("http://localhost:3000/")
+
 
 function PlayerIcon({ i, name }) {
     return (
@@ -13,6 +15,15 @@ function PlayerIcon({ i, name }) {
     );
 }
 function TitlePage() {
+
+    const [players, setPlayers] = useState([{pic: 0, username: 'hi',}]);
+
+    useEffect(() => {
+        socket.emit('join','room1');
+        socket.on('userUpdate', setPlayers);
+
+        return () => socket.disconnect();
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -26,7 +37,7 @@ function TitlePage() {
             </div>
             <div>
                 <div style={{ marginBottom: '24px' }}>
-                <Link to="/game"><StartButton /></Link>
+                    <StartButton />
                 </div>
                 <InviteButton />
             </div>
@@ -35,54 +46,3 @@ function TitlePage() {
 }
 
 export default TitlePage;
-
-const players = [
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 1,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-];
