@@ -20,7 +20,7 @@ class game {
     }
 
     checkWord(word) {
-        if (word in dictionary && currWord[currWord.length - 1] == word[0]) {
+        if (word in dictionary && currWord[currWord.length - 1] == word[0] && !(word in this.usedWords)) {
             currWord = word
             usedWords.add(word)
             return true
@@ -33,8 +33,6 @@ class game {
     }
 
     nextPlayer(player) {
-        // have a next id variable inside each player instance
-        // start i at 1 to exclude the current player
         let nextP = player
         for (let i = 0; i < numPlayers; i++) {
             nextP = nextP.getNext()
