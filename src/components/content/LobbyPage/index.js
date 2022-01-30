@@ -39,7 +39,7 @@ function TitlePage() {
             </div>
             <div>
                 <div style={{ marginBottom: '24px' }}>
-                    <Link to="/game"><StartButton /></Link>
+                    <StartButton onClick={() => {window.location.href="/game"}}/>
                 </div>
                 <InviteButton />
             </div>
