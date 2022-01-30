@@ -3,7 +3,7 @@ import { StartButton, InviteButton } from '../../widgets/Buttons'
 import styles from './style.module.css';
 import avatarList from '../../../globals/AvatarList';
 import socketIOClient from "socket.io-client";
-const socket = socketIOClient("http://localhost:3000/")
+const socket = socketIOClient("https://vast-hollows-69004.herokuapp.com/")
 
 
 function PlayerIcon({ i, name }) {
