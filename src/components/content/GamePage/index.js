@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, useCallback } from 'react';
-=======
 import React, { useContext, useEffect, useState } from 'react';
->>>>>>> fdf2b12ea9d0e462d620ff473b644efaf345b1e0
 import styles from './style.module.css';
 import Player from './Player';
 import { Form, Row, Col } from 'react-bootstrap';
