@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from './style.module.css';
 import Player from './Player';
 import { Form, Row, Col } from 'react-bootstrap';
+import {SocketContext} from '../../../socket';
 import FadeIn from 'react-fade-in';
 
 function Timer({ time }) {
@@ -39,6 +40,18 @@ function GamePage() {
 
     const [devPlayernum, setDevPlayernum] = useState(0);
     const [time, setTime] = useState(10);
+
+
+    var socket = useContext(SocketContext);
+    socket.emit('joinServer', window.sessionStorage.getItem("abc"), 'room1');
+
+    useEffect(() => {
+
+
+         socket.on('userUpdateGame', setPlayers);
+
+         return () => socket.disconnect();
+    }, [])
 
     const updateLife = (player, num) => {
         setPlayers((arr) => {
