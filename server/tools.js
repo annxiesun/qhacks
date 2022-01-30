@@ -56,6 +56,17 @@ module.exports = {
     };
     return ret_array;
   },
+  GetLobby: function(listOfIds){
+    var ids = Array.from(listOfIds);
+    var ret_array = []
+    for (var x = 0; x < ids.length; x++) {
+        ret_array.push({
+            pic: 1,
+            username: this.GetUserName(ids[x])
+        });
+    };
+    return ret_array;
+  },
   NewGame: function(room, playerIDs) {
     games[room] = games(2,2)
   },
