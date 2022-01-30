@@ -35,7 +35,7 @@ function isCorrect(word) {
     return true;
 }
 function GamePage() {
-    const [wordArr, setWordArr] = useState(["QUIRKY", "QUIRK", "KEEMSTAR"]);
+    const [wordArr, setWordArr] = useState(["QUIRKY", "YEAR", "ROCKET"]);
     const [players, setPlayers] = useState(players_default);
 
     const [devPlayernum, setDevPlayernum] = useState(0);
@@ -43,12 +43,11 @@ function GamePage() {
 
 
     var socket = useContext(SocketContext);
-    socket.emit('joinServer', window.sessionStorage.getItem("abc"), 'room1');
 
     useEffect(() => {
+        socket.emit('joinServer', window.sessionStorage.getItem("abc"), 'room1');
 
-
-         socket.on('userUpdateGame', setPlayers);
+        socket.on('userUpdateGame', setPlayers);
 
          return () => socket.disconnect();
     }, [])
@@ -93,7 +92,8 @@ function GamePage() {
             //console.log('hi')
             if (isCorrect(e.target.value)) {
                 onUpdateWord(e.target.value);
-            } 
+            }
+            socket.emit('checkAttempt', e.target.value);
             e.target.value = "";
 
         }
