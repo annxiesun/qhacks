@@ -40,9 +40,9 @@ module.exports = {
     var ret_array = []
     for (var x = 0; x < listOfIds.length; x++) {
         ret_array.push({
-            pic: this.GetUserProfile(ids[x]),
-            username: this.GetUserName(ids[x]),
-            lives: this.GetUserLives(ids[x])
+            pic: this.GetUserProfile(listOfIds[x]),
+            username: this.GetUserName(listOfIds[x]),
+            lives: this.GetUserLives(listOfIds[x])
         });
     };
     return ret_array;
