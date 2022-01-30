@@ -20,15 +20,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
-app.get("/getNewLobby", (req, res) => {
-  res.send(tools.GenerateLobbyUrl());
-});
-
-app.get("/getUserProfile/*", (req, res) => {
-  var imageFile = tools.GetUserProfile(req.path) + ".png"
-  res.sendFile(path.join(__dirname, "..", "build", "resources", "pfps", imageFile));
-});
-
 app.get("/lobby*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "some.html"));
 });
@@ -37,11 +28,55 @@ io.on('connection', (socket) => {
   socket.on('join', (room) => {
     console.log("User: " + socket.id + " | joined room: " + room);
     socket.join(room);
+
+    io.to(room).emit()
   });
 
   socket.on('message', (msg) => {
-    io.to(socket.rooms[1]).emit("hi");
+    var room = tools.GetLastValue(socket.rooms);
+
+    var message = tools.GetUserName(socket.id) + ": " + msg
+    io.to(room).emit("new_msg", message);
   });
+
+  socket.on('setUser', (username, profile) => {
+    tools.AddUserName(socket.id, username);
+    tools.AddUserName(socket.id, profile);
+
+    var room = tools.GetLastValue(socket.rooms);
+    var clients = io.sockets.adapter.rooms.get(room);
+
+    io.to(room).emit("userUpdate", tools.GetUsers(clients));
+
+  });
+
+  socket.on('startGame', () => {
+    var room = tools.GetLastValue(socket.rooms);
+
+    var clients = io.sockets.adapter.rooms.get(room);
+
+    tools.NewGame(room, clients)
+  });
+
+  socket.on('checkAttempt', (msg) => {
+    var room = tools.GetLastValue(socket.rooms);
+    var game = tools.GetGame(room)
+
+    if (game.IsPlayerValid(socket.id)) {
+        if (game.isAnswerValid(socket)) {
+            var new_player = game.nextPlayer();
+            socket.to(room).emit("correctAnswer", msg, new_player);
+        } else {
+            socket.to(socket.id).emit("wrongAnswer")
+        }
+
+    }
+
+
+
+  });
+
+
 });
 
 
