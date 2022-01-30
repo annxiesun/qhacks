@@ -9,6 +9,7 @@
   <input id="input" type="text" placeholder="Enter message" />
   <input id="send" type="submit" value="Enter" />
   <input id="input2" type="text" placeholder="Enter name" />
+  <input id="input3" type="text" placeholder="Enter profile" />
   <input id="send2" type="submit" value="Enter" />
   <input id="send3" type="submit" value="Start Game" />
 
@@ -25,14 +26,11 @@
       socket.emit('message', document.getElementById("input").value)
     }
     document.getElementById("send2").onclick = function() {
-      socket.emit('setUserName', document.getElementById("input2").value)
+      socket.emit('setUser', document.getElementById("input2").value, document.getElementById("input3").value)
     }
     document.getElementById("send3").onclick = function() {
       socket.emit('startGame')
     }
-
-
-
 
     socket.on("new_msg", function(data) {
       const textNode = document.createTextNode(data);

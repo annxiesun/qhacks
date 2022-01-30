@@ -28,6 +28,9 @@ module.exports = {
   AddProfilePhoto: function (id, choice) {
     pfp[id] = choice;
   },
+  SetUpLives: function (id) {
+    liveMap[id] = 2;
+  },
   GetUserName: function(id) {
     if (usernames[id]) {
       return usernames[id];
@@ -40,13 +43,15 @@ module.exports = {
     }
     return 0;
   },
+  GetUserProfile: function(id) { return liveMap[id] },
   GetUsers: function(listOfIds){
     var ids = Array.from(listOfIds);
     var ret_array = []
     for (var x = 0; x < ids.length; x++) {
         ret_array.push({
             photo: this.GetUserProfile(ids[x]),
-            nickname: this.GetUserName(ids[x])
+            nickname: this.GetUserName(ids[x]),
+            lives: this.GetUserProfile(ids[x])
         });
     };
     return ret_array;
@@ -63,4 +68,5 @@ module.exports = {
 var existingLobbies = [];
 var usernames = {};
 var pfp = {}
+var liveMap = {}
 var games = {}

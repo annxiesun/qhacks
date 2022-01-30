@@ -41,10 +41,13 @@ io.on('connection', (socket) => {
 
   socket.on('setUser', (username, profile) => {
     tools.AddUserName(socket.id, username);
-    tools.AddUserName(socket.id, profile);
+    tools.AddProfilePhoto(socket.id, profile);
+    tools.SetUpLives(socket.id);
 
     var room = tools.GetLastValue(socket.rooms);
     var clients = io.sockets.adapter.rooms.get(room);
+    console.log(clients)
+    console.log(tools.GetUsers(clients))
 
     io.to(room).emit("userUpdate", tools.GetUsers(clients));
 
@@ -69,14 +72,8 @@ io.on('connection', (socket) => {
         } else {
             socket.to(socket.id).emit("wrongAnswer")
         }
-
     }
-
-
-
   });
-
-
 });
 
 
