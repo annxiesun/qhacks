@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import TitlePage from './content/TitlePage';
 import CreatePage from './content/CreatePage';
 import LobbyPage from './content/LobbyPage';
@@ -11,6 +11,12 @@ import {
 } from "react-router-dom";
 
 function MasterView() {
+
+  useEffect(() => {
+    window.localStorage.setItem("randomId", Math.random().toString(16).substring(2,10));
+    console.log(window.localStorage.getItem("randomId")); // access it
+  },[]);
+
   return (
     <Routes>
       <Route path="/" element={<TitlePage />} />
