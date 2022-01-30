@@ -12,6 +12,7 @@
     box-shadow: -5px 5px 0px 1px var(--blue);
     width: 200px;
     justify-content: center;
+    text-decoration: none !important;
     
 }
 

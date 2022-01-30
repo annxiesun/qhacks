@@ -11,6 +11,7 @@
 .pfp {
     height: 50px;
     margin-bottom: 10px;
+    pointer-events: none;
 }
 
 .p {

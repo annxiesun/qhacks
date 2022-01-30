@@ -3,7 +3,10 @@ import StartButton from '../../widgets/Buttons/StartButton';
 import styles from './style.module.css';
 import { Form, Row, Col } from 'react-bootstrap';
 import avatarList from '../../../globals/AvatarList';
+import { Link, useNavigate } from 'react-router-dom';
+
 function CreatePage() {
+    let navigate = useNavigate();
     const [avatar, setAvatar] = useState(0);
 
     const nextAvatar = () => {
@@ -23,7 +26,7 @@ function CreatePage() {
     }
 
     const onSubmit = () => {
-        console.log("submitted");
+        navigate('/lobby');
     }
 
     return (

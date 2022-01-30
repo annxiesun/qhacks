@@ -304,3 +304,8 @@
 .alignItemsCenter {
   align-items: center;
 }
+
+
+a:link {
+  text-decoration: none;
+}

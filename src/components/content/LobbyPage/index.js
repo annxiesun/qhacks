@@ -2,6 +2,7 @@ import React from 'react';
 import { StartButton, InviteButton } from '../../widgets/Buttons'
 import styles from './style.module.css';
 import avatarList from '../../../globals/AvatarList';
+import {Link} from 'react-router-dom';
 
 function PlayerIcon({ i, name }) {
     return (
@@ -25,7 +26,7 @@ function TitlePage() {
             </div>
             <div>
                 <div style={{ marginBottom: '24px' }}>
-                    <StartButton />
+                <Link to="/game"><StartButton /></Link>
                 </div>
                 <InviteButton />
             </div>
