@@ -1,4 +1,4 @@
-import './player.js';
+/*import './player.js';
 var fs = require("fs");
 
 class game {
@@ -60,4 +60,4 @@ class game {
             }
         }
     }
-}
+}*/
