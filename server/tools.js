@@ -58,7 +58,6 @@ module.exports = {
     return games[room];
   }
 
-
 };
 
 var existingLobbies = [];

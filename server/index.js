@@ -62,7 +62,17 @@ io.on('connection', (socket) => {
     var room = tools.GetLastValue(socket.rooms);
     var game = tools.GetGame(room)
 
-    
+    if (game.IsPlayerValid(socket.id)) {
+        if (game.isAnswerValid(socket)) {
+            var new_player = game.nextPlayer();
+            socket.to(room).emit("correctAnswer", msg, new_player);
+        } else {
+            socket.to(socket.id).emit("wrongAnswer")
+        }
+
+    }
+
+
 
   });
 
