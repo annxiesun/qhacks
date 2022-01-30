@@ -9,6 +9,7 @@ import {SocketContext} from '../../../socket';
 function CreatePage() {
     let navigate = useNavigate();
     const [avatar, setAvatar] = useState(0);
+    const [user, setUser] = useState("");
 
     var socket = useContext(SocketContext);
 
@@ -31,6 +32,7 @@ function CreatePage() {
     const onSubmit = (e) => {
         e.preventDefault();
         socket.emit('setUser','RANDOMNAME', avatar);
+        const user = e.target[0].value;
         window.location.href = '/lobby';
         console.log(window.location.href);
     }
