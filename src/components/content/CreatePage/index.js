@@ -30,7 +30,7 @@ function CreatePage() {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        socket.emit('setUser','RANDOMNAME', avatar);
+        socket.emit('setUser', window.localStorage.getItem("randomId"), 'RANDOMNAME', avatar);
         window.location.href = '/lobby';
         console.log(window.location.href);
     }

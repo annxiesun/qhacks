@@ -14,7 +14,6 @@ function MasterView() {
 
   useEffect(() => {
     window.localStorage.setItem("randomId", Math.random().toString(16).substring(2,10));
-    console.log(window.localStorage.getItem("randomId")); // access it
   },[]);
 
   return (
