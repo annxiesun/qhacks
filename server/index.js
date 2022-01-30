@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
     socket.join(room);
 
     var clients = tools.GetUsersIds();
-
+    console.log(clients);
     console.log(tools.GetLobby(clients));
 
     io.to(room).emit("userUpdate", tools.GetLobby(clients));
@@ -46,6 +46,9 @@ io.on('connection', (socket) => {
     tools.AddProfilePhoto(uniqueID, profile);
     tools.SetUpLives(uniqueID);
     tools.AddUser(uniqueID);
+    console.log(profile);
+    console.log(uniqueID);
+    console.log(tools.GetUserProfile(uniqueID));
 
   });
 
