@@ -20,12 +20,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
-
-app.get("/getUserProfile/*", (req, res) => {
-  var imageFile = tools.GetUserProfile(req.path) + ".png"
-  res.sendFile(path.join(__dirname, "..", "build", "resources", "pfps", imageFile));
-});
-
 app.get("/lobby*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "some.html"));
 });
@@ -46,16 +40,16 @@ io.on('connection', (socket) => {
     io.to(room).emit("new_msg", message);
   });
 
-  socket.on('setUserName', (username) => {
+  socket.on('setUser', (username, profile) => {
     tools.AddUserName(socket.id, username);
-
-  });
-
-  socket.on('setUserPFP', (profile) => {
     tools.AddUserName(socket.id, profile);
 
-  });
+    var room = tools.GetLastValue(socket.rooms);
+    var clients = io.sockets.adapter.rooms.get(room);
 
+    io.to(room).emit("userUpdate", tools.GetUsers(clients));
+
+  });
 
   socket.on('startGame', () => {
     var room = tools.GetLastValue(socket.rooms);
