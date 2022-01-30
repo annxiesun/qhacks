@@ -12,7 +12,7 @@ class player {
 
     isId(testId) { return this.id == testId; }
 
-    next() {
+    getNext() {
         return this.next
     }
 
