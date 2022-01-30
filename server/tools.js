@@ -27,6 +27,9 @@ module.exports = {
     if (pfp[id]) {
       return pfp[id];
     }
+    if (pfp[id] == 0) {
+      return 0;
+    }
     return 1;
   },
   GetUserLives: function(id) { return liveMap[id] },
