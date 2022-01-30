@@ -6,14 +6,24 @@
  flex-direction: column;
  padding: 10px;
  box-sizing: border-box;
+ height: 170px;
+}
+
+.active {
+    border: 2px solid var(--blue);
+    border-radius: 5px;
 }
 
 .pfp {
     height: 50px;
     margin-bottom: 10px;
     pointer-events: none;
+    transition: 0.25s;
 }
-
+.activeplayer {
+    height: 80px;
+    transition: 0.25s;
+}
 .p {
     margin-bottom: 0;
 }
@@ -33,7 +43,7 @@
     -webkit-filter: grayscale(100%);
 }
 @media screen and (max-width: 700px) { 
-
+       
     
     
 }
