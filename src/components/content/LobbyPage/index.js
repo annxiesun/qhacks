@@ -12,56 +12,6 @@ function PlayerIcon({ i, name }) {
     );
 }
 function TitlePage() {
-    const players = [
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 1,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-        {
-            pic: 0,
-            username: 'hi',
-        },
-    ];
 
     return (
         <div className={styles.container}>
@@ -84,3 +34,54 @@ function TitlePage() {
 }
 
 export default TitlePage;
+
+const players = [
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 1,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+    {
+        pic: 0,
+        username: 'hi',
+    },
+];
