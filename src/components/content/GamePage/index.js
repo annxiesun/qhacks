@@ -144,12 +144,6 @@ function GamePage() {
                     <Form.Control onKeyDown={onKeyDown} autocomplete="off" />
                 </Form.Group>
             </div>
-            <div className={styles.devcontrols}>
-                <button onClick={devStartTimer}>start timer</button>
-                <button onClick={() => setTime(10)}>reset timer</button>
-                <button onClick={devLoseLife}>lose life</button><input placeholder="player #"
-                    value={devPlayernum} onChange={(e) => setDevPlayernum(e.target.value)} />
-            </div>
         </div>
     )
 }
