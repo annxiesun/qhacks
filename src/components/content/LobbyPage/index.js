@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StartButton, InviteButton } from '../../widgets/Buttons'
 import styles from './style.module.css';
 import avatarList from '../../../globals/AvatarList';
-import {Link} from 'react-router-dom';
+import {SocketContext} from '../../../socket';
 
 function PlayerIcon({ i, name }) {
     return (
         <div className={styles.playerIcon}>
             <img className={styles.pfp} src={`resources/pfps/${avatarList[i]}`} />
-            <p>name</p>
+            <p>{name}</p>
         </div>
     );
 }
 function TitlePage() {
+
+    const [players, setPlayers] = useState([{pic: 0, username: 'hi',}]);
+
+    var socket = useContext(SocketContext);
+
+    useEffect(() => {
+        socket.emit('join','room1');
+        socket.on('userUpdate', setPlayers);
+
+        return () => socket.disconnect();
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -26,7 +37,7 @@ function TitlePage() {
             </div>
             <div>
                 <div style={{ marginBottom: '24px' }}>
-                <Link to="/game"><StartButton /></Link>
+                    <StartButton />
                 </div>
                 <InviteButton />
             </div>
@@ -35,54 +46,3 @@ function TitlePage() {
 }
 
 export default TitlePage;
-
-const players = [
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 1,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-    {
-        pic: 0,
-        username: 'hi',
-    },
-];

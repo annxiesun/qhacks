@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import StartButton from '../../widgets/Buttons/StartButton';
 import styles from './style.module.css';
 import { Form, Row, Col } from 'react-bootstrap';
 import avatarList from '../../../globals/AvatarList';
 import { Link, useNavigate } from 'react-router-dom';
+import {SocketContext} from '../../../socket';
 
 function CreatePage() {
     let navigate = useNavigate();
     const [avatar, setAvatar] = useState(0);
+
+    var socket = useContext(SocketContext);
 
     const nextAvatar = () => {
         if (avatar == avatarList.length - 1) {
@@ -26,6 +29,7 @@ function CreatePage() {
     }
 
     const onSubmit = () => {
+        socket.emit('setUser','RANDOMNAME', avatar);
         navigate('/lobby');
     }
 

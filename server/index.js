@@ -16,20 +16,21 @@ const port = process.env.PORT || 3000
 app.use(express.static(path.join(__dirname, "..", "build")));
 
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
-app.get("/lobby*", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "build", "some.html"));
-});
 
 io.on('connection', (socket) => {
   socket.on('join', (room) => {
     console.log("User: " + socket.id + " | joined room: " + room);
     socket.join(room);
 
-    io.to(room).emit()
+    var clients = io.sockets.adapter.rooms.get(room);
+
+    console.log(tools.GetLobby(clients));
+
+    io.to(room).emit("userUpdate", tools.GetLobby(clients));
   });
 
   socket.on('message', (msg) => {
@@ -40,16 +41,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('setUser', (username, profile) => {
+    console.log("SET")
     tools.AddUserName(socket.id, username);
     tools.AddProfilePhoto(socket.id, profile);
     tools.SetUpLives(socket.id);
-
-    var room = tools.GetLastValue(socket.rooms);
-    var clients = io.sockets.adapter.rooms.get(room);
-    console.log(clients)
-    console.log(tools.GetUsers(clients))
-
-    io.to(room).emit("userUpdate", tools.GetUsers(clients));
 
   });
 
