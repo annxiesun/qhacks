@@ -4,12 +4,19 @@ import Player from './Player';
 import { Form, Row, Col } from 'react-bootstrap';
 import FadeIn from 'react-fade-in';
 
+function Timer({ time }) {
+    return (
+        <div className={styles.clock}>
+            {time}
+        </div>
+    )
+}
 function Words({ wordArr }) {
 
     return (
         <div className={styles.wordsContainer}>
             <div className={styles.overlay} />
-            <FadeIn className={styles.fadebox} key={Math.random()}>
+            <FadeIn className={styles.fadebox} >
                 <p className={styles.pastWord}>{wordArr[0]}</p>
                 <p className={styles.pastWord}>{wordArr[1]}</p>
                 <p className={styles.lastWord}>{wordArr[2].substring(0, wordArr[2].length - 1)}
@@ -28,20 +35,41 @@ function isCorrect(word) {
 }
 function GamePage() {
     const [wordArr, setWordArr] = useState(["QUIRKY", "QUIRK", "KEEMSTAR"]);
+    const [players, setPlayers] = useState(players_default);
 
-    const onUpdateWord = (e) => {
-        /*
-        const newArr = wordArr;
-        newArr.shift();
-        newArr.push(e.target.value);
-        setWordArr(newArr);
-        console.log("update word");*/
+    const [devPlayernum, setDevPlayernum] = useState(0);
+    const [time, setTime] = useState(10);
+
+    const updateLife = (player, num) => {
+        setPlayers((arr) => {
+            const newArr = [...arr];
+            newArr[player].lives += num;
+            return newArr;
+        });
+    }
+
+    const devLoseLife = () => {
+        updateLife(devPlayernum, -1);
+    }
+
+    const devStartTimer = () => {
+        var times = 0;
+        var interval = setInterval(() => {
+            setTime((t) => {
+                return t-1;
+            });
+            times+=1;
+            if (times >= 10) clearInterval(interval);
+        }, 1000);
+    }
+
+    const onUpdateWord = (word) => {
 
         setWordArr((arr) => {
             const newArr = [...arr];
             newArr.shift();
             //console.log(e.target.value);
-            newArr.push(e.target.value);
+            newArr.push(word.toUpperCase());
             return newArr;
         });
         //console.log(wordArr);
@@ -50,9 +78,9 @@ function GamePage() {
     const onKeyDown = (e) => {
         if (e.key === 'Enter') {
             //console.log('hi')
-            if(isCorrect(e.target.value)) {
-                onUpdateWord(e);
-            }
+            if (isCorrect(e.target.value)) {
+                onUpdateWord(e.target.value);
+            } 
             e.target.value = "";
 
         }
@@ -60,6 +88,7 @@ function GamePage() {
     console.log("hi");
     return (
         <div className={styles.container}>
+            <Timer time={time} />
             <div className={styles.playerContainer}>
                 {players.map((player) => {
                     return (
@@ -67,23 +96,26 @@ function GamePage() {
                     )
                 })}
             </div>
+
             <div className={styles.centerSection}>
                 <Words wordArr={wordArr} />
                 <Form.Group className="mb-3 w-100 flex flex-column align-items-center" controlId="formBasicEmail">
-                    <Form.Label>Type word that start's with</Form.Label>
+                    <Form.Label>{"Type word that start's with "} {wordArr[2][wordArr[2].length - 1]}</Form.Label>
 
                     <Form.Control onKeyDown={onKeyDown} autocomplete="off" />
                 </Form.Group>
             </div>
             <div className={styles.devcontrols}>
-                <button>start timer</button>
-                <button>lose life</button><input placeholder="player #" />
+                <button onClick={devStartTimer}>start timer</button>
+                <button onClick={() => setTime(10)}>reset timer</button>
+                <button onClick={devLoseLife}>lose life</button><input placeholder="player #"
+                    value={devPlayernum} onChange={(e) => setDevPlayernum(e.target.value)} />
             </div>
         </div>
     )
 }
 
-const players = [
+const players_default = [
     {
         pic: 0,
         username: 'hi',

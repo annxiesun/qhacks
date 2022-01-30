@@ -12,7 +12,7 @@ function Player({ i, name, lives}) {
     return (
         <div className={styles.container}>
                     <p className={styles.p}>{name}</p>
-        <img className={styles.pfp} src={`resources/pfps/${avatarList[i]}`} />
+        <img className={`${styles.pfp} ${(lives == 0) && styles.dead }`} src={`resources/pfps/${avatarList[i]}`} />
         <div className={styles.livesContainer}>
         {lives_display}
         </div>
