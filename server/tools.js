@@ -10,13 +10,6 @@ module.exports = {
         return randomLobby;
     }
   },
-  GetUserProfile: function (path) {
-    var choice = path.toString().substring(16);
-    if (choice >= 1 && choice <= 3) {
-        return choice
-    }
-    return "placeholder"
-  },
   GetLastValue: function (set) {
     let value;
     for(value of set);
@@ -37,13 +30,12 @@ module.exports = {
     }
     return "Default-Player";
   },
-  GetUserProfile: function(prof) {
-    if (pfp[prof]) {
-      return pfp[prof];
+  GetUserProfile: function(id) {
+    if (pfp[id]) {
+      return pfp[id];
     }
-    return 0;
+    return 1;
   },
-  GetUserProfile: function(id) { return liveMap[id] },
   GetUsers: function(listOfIds){
     var ids = Array.from(listOfIds);
     var ret_array = []
@@ -61,7 +53,7 @@ module.exports = {
     var ret_array = []
     for (var x = 0; x < ids.length; x++) {
         ret_array.push({
-            pic: 1,
+            pic: this.GetUserProfile(ids[x]),
             username: this.GetUserName(ids[x])
         });
     };

@@ -2,21 +2,21 @@ import React, { useContext, useEffect, useState } from 'react';
 import { StartButton, InviteButton } from '../../widgets/Buttons'
 import styles from './style.module.css';
 import avatarList from '../../../globals/AvatarList';
-import socketIOClient from "socket.io-client";
-const socket = socketIOClient("http://localhost:3000/")
-
+import {SocketContext} from '../../../socket';
 
 function PlayerIcon({ i, name }) {
     return (
         <div className={styles.playerIcon}>
             <img className={styles.pfp} src={`resources/pfps/${avatarList[i]}`} />
-            <p>name</p>
+            <p>{name}</p>
         </div>
     );
 }
 function TitlePage() {
 
     const [players, setPlayers] = useState([{pic: 0, username: 'hi',}]);
+
+    var socket = useContext(SocketContext);
 
     useEffect(() => {
         socket.emit('join','room1');

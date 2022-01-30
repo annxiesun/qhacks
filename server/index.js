@@ -41,16 +41,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('setUser', (username, profile) => {
+    console.log("SET")
     tools.AddUserName(socket.id, username);
     tools.AddProfilePhoto(socket.id, profile);
     tools.SetUpLives(socket.id);
-
-    var room = tools.GetLastValue(socket.rooms);
-    var clients = io.sockets.adapter.rooms.get(room);
-    console.log(clients)
-    console.log(tools.GetUsers(clients))
-
-    io.to(room).emit("userUpdate", tools.GetUsers(clients));
 
   });
 
