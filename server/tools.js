@@ -1,5 +1,5 @@
 const MaxTime = 15;
-
+var tools = require('./game');
 module.exports = {
   GenerateLobbyUrl: function () {
     var randomLobby = Math.random().toString(16).substring(2,10);
@@ -32,13 +32,13 @@ module.exports = {
     if (usernames[id]) {
       return usernames[id];
     }
-    return id;
+    return "Default-Player";
   },
   GetUserProfile: function(prof) {
     if (pfp[prof]) {
       return pfp[prof];
     }
-    return prof;
+    return 0;
   },
   GetUsers: function(listOfIds){
     var ids = Array.from(listOfIds);
@@ -50,6 +50,12 @@ module.exports = {
         });
     };
     return ret_array;
+  },
+  NewGame: function(room, playerIDs) {
+    games[room] = games(2,2)
+  },
+  GetGame: function(room) {
+    return games[room];
   }
 
 };
@@ -57,3 +63,4 @@ module.exports = {
 var existingLobbies = [];
 var usernames = {};
 var pfp = {}
+var games = {}
