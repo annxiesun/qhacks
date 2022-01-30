@@ -39,8 +39,8 @@ class game {
     }
 
     chooseDictionary() {
-        var datasetNum = Math.floor(Math.random() * 3) + 1;
-        var text = fs.readFileSync("../dataset_dictionaries/dataset" + datasetNum + ".txt");
+        //var datasetNum = Math.floor(Math.random() * 3) + 1;
+        var text = fs.readFileSync("../dataset_dictionaries/dataset0.txt");
         var textByLine = text.split("\n");
         this.dictionaryDescription = textByLine[0];
         textByLine.splice[0, 1]; //splice at [0] and delete 1 word
