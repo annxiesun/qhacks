@@ -1,4 +1,4 @@
-import './player.js';
+var play = require('./player.js');
 var fs = require("fs");
 
 class game {
