@@ -34,8 +34,11 @@ io.on('connection', (socket) => {
   socket.on('join', (room) => {
     console.log("User: " + socket.id + " | joined room: " + room);
     socket.join(room);
+
+    io.to(room).emit()
   });
 
+  //temp
   socket.on('message', (msg) => {
     var room = tools.GetLastValue(socket.rooms);
 
@@ -44,9 +47,26 @@ io.on('connection', (socket) => {
   });
 
   socket.on('setUserName', (username) => {
-  console.log("hi")
-     tools.AddUserName(socket.id, username);
+    tools.AddUserName(socket.id, username);
+
   });
+
+  socket.on('setUserPFP', (profile) => {
+    tools.AddUserName(socket.id, profile);
+
+  });
+
+
+  socket.on('startGame', () => {
+    var room = tools.GetLastValue(socket.rooms);
+
+    var clients = io.sockets.adapter.rooms.get(room);
+
+    console.log(clients);
+
+    console.log(tools.GetUsers(clients))
+  });
+
 });
 
 
