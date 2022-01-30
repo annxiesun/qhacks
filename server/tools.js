@@ -36,10 +36,9 @@ module.exports = {
     return 1;
   },
   GetUserLives: function(id) { return liveMap[id] },
-  GetUsers: function(listOfIds){
-    var ids = Array.from(listOfIds);
+  GetUsers: function(listOfIds) {
     var ret_array = []
-    for (var x = 0; x < ids.length; x++) {
+    for (var x = 0; x < listOfIds.length; x++) {
         ret_array.push({
             pic: this.GetUserProfile(ids[x]),
             username: this.GetUserName(ids[x]),
