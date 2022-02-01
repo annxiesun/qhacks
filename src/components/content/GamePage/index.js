@@ -38,7 +38,7 @@ function isCorrect(word) {
     return true;
 }
 function GamePage() {
-    const [wordArr, setWordArr] = useState(["QUIRKY", "QUIRK", "KEEMSTAR"]);
+    const [wordArr, setWordArr] = useState(["", "", "LOBSTER"]);
     const [players, setPlayers] = useState(players_default);
     const [currPlayer, setCurrPlayer] = useState(0);
 
@@ -48,7 +48,7 @@ function GamePage() {
     const nextPlayer = () => {
         setCurrPlayer((c) => {
             let cc = c + 1;
-            if (cc >= players.length - 1) {
+            if (cc >= players.length) {
                 cc = 0;
             }
             console.log(players[cc].lives)
@@ -56,7 +56,7 @@ function GamePage() {
                 console.log(cc);
                 cc += 1;
                 console.log(cc);
-                if (cc >= players.length - 1) {
+                if (cc >= players.length) {
                     cc = 0;
                 } else {
                     continue;
@@ -88,25 +88,31 @@ function GamePage() {
 
     const devLoseLife = () => {
         console.log(currPlayer, devPlayernum, currPlayer === parseInt(devPlayernum));
-        updateLife(parseInt(devPlayernum), -1);
-        if(currPlayer === parseInt(devPlayernum)) nextPlayer();
+        //updateLife(parseInt(devPlayernum), -1);
+        //if(currPlayer === parseInt(devPlayernum)) nextPlayer();
     }
 
     const devStartTimer = () => {
         var times = 0;
         var interval = setInterval(() => {
             setTime((t) => {
+                if (t === 0) return 10;
                 return t - 1;
             });
             times += 1;
-            if (times >= 10) clearInterval(interval);
+            if (times === 10) {
+    
+                nextPlayer();
+                updateLife(currPlayer, -1);
+            }
         }, 1000);
     }
 
     const onUpdateWord = (word) => {
-
+        setTime(10);
+        //devStartTimer();
         setWordArr((arr) => {
-            const newArr = [...arr];
+            const newArr =  JSON.parse(JSON.stringify(arr));
             newArr.shift();
             //console.log(e.target.value);
             newArr.push(word.toUpperCase());
@@ -124,6 +130,7 @@ function GamePage() {
             }
             e.target.value = "";
 
+            e.Handled = true;
         }
     }
     console.log("hi");
@@ -143,7 +150,7 @@ function GamePage() {
                 <Form.Group className="mb-3 w-100 flex flex-column align-items-center" controlId="formBasicEmail">
                     <Form.Label>{"Type word that start's with "} {wordArr[2][wordArr[2].length - 1]}</Form.Label>
 
-                    <Form.Control onKeyDown={onKeyDown} autocomplete="off" />
+                    <Form.Control disabled={currPlayer !== 0 && players[currPlayer].lives > 0}onKeyDown={onKeyDown} autocomplete="off" />
                 </Form.Group>
             </div>
             <div className={styles.devcontrols}>
@@ -151,6 +158,7 @@ function GamePage() {
                 <button onClick={() => setTime(10)}>reset timer</button>
                 <button onClick={devLoseLife}>lose life</button><input placeholder="player #"
                     value={devPlayernum} onChange={(e) => setDevPlayernum(e.target.value)} />
+                    <input onKeyDown={onKeyDown}/>
             </div>
         </div>
     )
@@ -159,62 +167,22 @@ function GamePage() {
 const players_default = [
     {
         pic: 0,
-        username: 'hi',
-        lives: 2,
-    },
-    {
-        pic: 0,
-        username: 'hi',
-        lives: 2,
-    },
-    {
-        pic: 0,
-        username: 'hi',
-        lives: 2,
-    },
-    {
-        pic: 0,
-        username: 'hi',
-        lives: 2,
-    },
-    {
-        pic: 0,
-        username: 'hi',
-        lives: 2,
-    },
-    {
-        pic: 0,
-        username: 'hi',
-        lives: 2,
-    },
-    {
-        pic: 0,
-        username: 'hi',
-        lives: 2,
-    },
-    {
-        pic: 0,
-        username: 'hi',
+        username: 'Gavin',
         lives: 2,
     },
     {
         pic: 1,
-        username: 'hi',
+        username: 'Robbie',
         lives: 2,
     },
     {
-        pic: 0,
-        username: 'hi',
+        pic: 2,
+        username: 'Annie',
         lives: 2,
     },
     {
-        pic: 0,
-        username: 'hi',
-        lives: 2,
-    },
-    {
-        pic: 0,
-        username: 'hi',
+        pic: 3,
+        username: 'Chris',
         lives: 2,
     },
 ];
