@@ -1,5 +1,4 @@
 const MaxTime = 15;
-var tools = require('./game');
 module.exports = {
   GetLastValue: function (set) {
     let value;
@@ -60,12 +59,6 @@ module.exports = {
     };
     return ret_array;
   },
-  NewGame: function(room, playerIDs) {
-    games[room] = games(2,2)
-  },
-  GetGame: function(room) {
-    return games[room];
-  }
 
 };
 
@@ -74,4 +67,3 @@ var allUserNames = [];
 var usernames = {};
 var pfp = {}
 var liveMap = {}
-var games = {}

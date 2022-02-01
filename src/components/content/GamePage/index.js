@@ -67,12 +67,11 @@ function GamePage() {
     }
 
     var socket = useContext(SocketContext);
-    socket.emit('joinServer', window.sessionStorage.getItem("abc"), 'room1');
 
     useEffect(() => {
+        socket.emit('joinServer', window.sessionStorage.getItem("abc"), 'room1');
 
-
-         socket.on('userUpdateGame', setPlayers);
+        socket.on('userUpdateGame', setPlayers);
 
          return () => socket.disconnect();
     }, [])
@@ -126,7 +125,6 @@ function GamePage() {
             //console.log('hi')
             if (isCorrect(e.target.value)) {
                 onUpdateWord(e.target.value);
-                nextPlayer();
             }
             e.target.value = "";
 

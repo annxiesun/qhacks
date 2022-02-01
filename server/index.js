@@ -8,6 +8,7 @@ app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer, { });
 var tools = require('./tools');
+var games = require('./game');
 require("dotenv").config();
 
 const path = require("path");
@@ -39,8 +40,6 @@ io.on('connection', (socket) => {
     socket.join(room);
 
     var clients = tools.GetUsersIds();
-    console.log(clients);
-    console.log(tools.GetUsers(clients));
 
     io.to(room).emit("userUpdateGame", tools.GetUsers(clients));
   });
@@ -74,17 +73,15 @@ io.on('connection', (socket) => {
   });
 
   socket.on('checkAttempt', (msg) => {
-    var room = tools.GetLastValue(socket.rooms);
-    var game = tools.GetGame(room)
 
-    if (game.IsPlayerValid(socket.id)) {
-        if (game.isAnswerValid(socket)) {
-            var new_player = game.nextPlayer();
-            socket.to(room).emit("correctAnswer", msg, new_player);
-        } else {
-            socket.to(socket.id).emit("wrongAnswer")
-        }
+    console.log(games.checkWord(msg));
+
+    if (games.checkWord(msg)) {
+       io.to(room).emit("correctAnswer", msg);
+    } else {
+       io.to(socket.io).emit("falseAnswer");
     }
+
   });
 });
 
